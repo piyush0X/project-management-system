@@ -1,23 +1,22 @@
-require("dotenv").config();
-
-const app = require("./src/app");
-const pool = require("./src/config/db");
-
+const app = require('./src/app');
+const pool = require('./src/config/db');
+const initializeDatabase = require('./init-db');
 
 const PORT = process.env.PORT || 5000;
 
 async function startServer() {
   try {
-    await pool.query("SELECT NOW()");
+    await pool.query('SELECT NOW()');
 
-    console.log("PostgreSQL connected successfully");
+    console.log('Database connected successfully');
 
-        app.listen(PORT, '0.0.0.0', () => {
+    await initializeDatabase();
+
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on port ${PORT}`);
     });
-
   } catch (error) {
-    console.error("Failed to connect to PostgreSQL:", error);
+    console.error('Server startup failed:', error);
     process.exit(1);
   }
 }
