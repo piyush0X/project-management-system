@@ -1,238 +1,175 @@
-import {
-  useState,
-} from "react";
-
-import {
-  Link,
-  useNavigate,
-} from "react-router-dom";
-
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-
 export default function Register() {
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
-  const {
-    register,
-  } = useAuth();
-
-  const navigate =
-    useNavigate();
-
-
-  const [
-    fullName,
-    setFullName,
-  ] = useState("");
-
-
-  const [
-    email,
-    setEmail,
-  ] = useState("");
-
-
-  const [
-    password,
-    setPassword,
-  ] = useState("");
-
-
-  const [
-    confirmPassword,
-    setConfirmPassword,
-  ] = useState("");
-
-
-  const [
-    error,
-    setError,
-  ] = useState("");
-
-
-  const [
-    loading,
-    setLoading,
-  ] = useState(false);
-
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event) {
-
     event.preventDefault();
-
     setError("");
 
-
-    if (
-      !fullName.trim() ||
-      !email.trim() ||
-      !password
-    ) {
-
-      setError(
-        "Please fill in all required fields."
-      );
-
+    if (!fullName.trim() || !email.trim() || !password) {
+      setError("Please fill in all required fields.");
       return;
     }
-
 
     if (password.length < 6) {
-
-      setError(
-        "Password must be at least 6 characters."
-      );
-
+      setError("Password must be at least 6 characters.");
       return;
     }
 
-
-    if (
-      password !== confirmPassword
-    ) {
-
-      setError(
-        "Passwords do not match."
-      );
-
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
       return;
     }
-
 
     try {
-
       setLoading(true);
 
-      await register(
-        fullName,
-        email,
-        password
-      );
+      await register(fullName, email, password);
 
-
-      navigate(
-        "/dashboard",
-        {
-          replace: true,
-        }
-      );
-
+      navigate("/dashboard", {
+        replace: true,
+      });
     } catch (error) {
-
       setError(
         error.response?.data?.message ||
-        "Registration failed."
+          "Registration failed. Please try again."
       );
-
     } finally {
-
       setLoading(false);
     }
   }
 
-
   return (
-    <div className="auth-page">
+    <div className="auth-page register-page">
+      <div className="auth-card register-card">
 
-      <div className="auth-card">
+        {/* Logo */}
+        <div className="auth-logo">
+          <div className="auth-logo-icon">PM</div>
+        </div>
 
-        <h1>
-          Create Account
-        </h1>
+        {/* Heading */}
+        <div className="auth-header">
+          <h1>Create Account</h1>
 
-        <p className="auth-subtitle">
-          Start managing your projects.
-        </p>
+          <p>
+            Create your account and start managing
+            projects and tasks.
+          </p>
+        </div>
 
-
+        {/* Error */}
         {error && (
           <div className="alert error">
             {error}
           </div>
         )}
 
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="auth-form">
 
-        <form
-          onSubmit={handleSubmit}
-        >
+          <div className="form-group">
+            <label htmlFor="fullName">
+              Full Name
+            </label>
 
-          <label>
-            Full Name
-          </label>
+            <input
+              id="fullName"
+              type="text"
+              placeholder="Enter your full name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              autoComplete="name"
+            />
+          </div>
 
-          <input
-            type="text"
-            placeholder="Your full name"
-            value={fullName}
-            onChange={(e) =>
-              setFullName(e.target.value)
-            }
-          />
+          <div className="form-group">
+            <label htmlFor="email">
+              Email Address
+            </label>
 
+            <input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+            />
+          </div>
 
-          <label>
-            Email
-          </label>
+          <div className="form-group">
+            <label htmlFor="password">
+              Password
+            </label>
 
-          <input
-            type="email"
-            placeholder="you@example.com"
-            value={email}
-            onChange={(e) =>
-              setEmail(e.target.value)
-            }
-          />
+            <input
+              id="password"
+              type="password"
+              placeholder="At least 6 characters"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="new-password"
+            />
 
+            <span className="field-hint">
+              Minimum 6 characters
+            </span>
+          </div>
 
-          <label>
-            Password
-          </label>
+          <div className="form-group">
+            <label htmlFor="confirmPassword">
+              Confirm Password
+            </label>
 
-          <input
-            type="password"
-            placeholder="At least 6 characters"
-            value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
-          />
-
-
-          <label>
-            Confirm Password
-          </label>
-
-          <input
-            type="password"
-            placeholder="Repeat password"
-            value={confirmPassword}
-            onChange={(e) =>
-              setConfirmPassword(e.target.value)
-            }
-          />
-
+            <input
+              id="confirmPassword"
+              type="password"
+              placeholder="Re-enter your password"
+              value={confirmPassword}
+              onChange={(e) =>
+                setConfirmPassword(e.target.value)
+              }
+              autoComplete="new-password"
+            />
+          </div>
 
           <button
             type="submit"
+            className="auth-button"
             disabled={loading}
           >
-            {loading
-              ? "Creating account..."
-              : "Register"}
+            {loading ? (
+              <span className="button-loading">
+                <span className="spinner"></span>
+                Creating account...
+              </span>
+            ) : (
+              "Create Account"
+            )}
           </button>
-
         </form>
 
-
-        <p className="auth-footer">
-          Already have an account?{" "}
+        {/* Footer */}
+        <div className="auth-footer">
+          <span>Already have an account?</span>{" "}
           <Link to="/login">
-            Login
+            Sign in
           </Link>
-        </p>
+        </div>
 
       </div>
-
     </div>
   );
 }
