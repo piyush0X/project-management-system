@@ -1,0 +1,199 @@
+@baseUrl = http://localhost:5000/api
+@token = YOUR_JWT_TOKEN
+
+### ==========================================
+### AUTH
+### ==========================================
+
+### Register User
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Piyush",
+  "email": "piyush@example.com",
+  "password": "Password123"
+}
+
+
+### Login User
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "piyush@example.com",
+  "password": "Password123"
+}
+
+
+### Logout User
+POST {{baseUrl}}/auth/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxNDAzMjI0LCJleHAiOjE3OTE0ODk2MjR9.ubmNJk_gAJSL8c9IOXy6xT2F6N1KD4x75CJV8CglumU
+
+### ==========================================
+### PROJECTS
+### ==========================================
+
+### Get All Projects
+GET {{baseUrl}}/projects
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxNDAzMjI0LCJleHAiOjE3OTE0ODk2MjR9.ubmNJk_gAJSL8c9IOXy6xT2F6N1KD4x75CJV8CglumU
+
+
+### Create Project
+POST {{baseUrl}}/projects
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxNDAzNDE2LCJleHAiOjE3OTE0ODk4MTZ9.oWtMZTVbOy6-F1CaIqox1XFvgKrsmYUqmlz64rJIl30
+
+{
+  "name": "Backend Authentication",
+  "description": "JWT authentication and protected routes",
+  "status": "Completed",
+  "start_date": "2026-10-01",
+  "end_date": "2026-10-15"
+}
+
+
+### Get Project By ID
+GET {{baseUrl}}/projects/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxMzgxNzU4LCJleHAiOjE3OTE0NjgxNTh9.OipSnIIZANuqnrM2FZ78V4ufD1LcyYXmOBabHqWnCZU
+
+
+### Update Project
+PUT {{baseUrl}}/projects/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Backend Authentication Updated",
+  "description": "Updated project description",
+  "status": "Completed",
+  "start_date": "2026-10-01",
+  "end_date": "2026-10-15"
+}
+
+
+### ==========================================
+### TASKS
+### ==========================================
+
+### Create Task - 6K.8
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxMzgxNzU4LCJleHAiOjE3OTE0NjgxNTh9.OipSnIIZANuqnrM2FZ78V4ufD1LcyYXmOBabHqWnCZU
+
+{
+  "project_id": 1,
+  "name": "Create backend authentication",
+  "description": "Implement JWT authentication and protected routes.",
+  "priority": "High",
+  "status": "Completed",
+  "due_date": "2026-10-10"
+}
+
+
+### Get All Tasks
+GET {{baseUrl}}/tasks
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxMzgxNzU4LCJleHAiOjE3OTE0NjgxNTh9.OipSnIIZANuqnrM2FZ78V4ufD1LcyYXmOBabHqWnCZU
+
+
+### Get Tasks For Project
+GET {{baseUrl}}/tasks/project/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxMzgxNzU4LCJleHAiOjE3OTE0NjgxNTh9.OipSnIIZANuqnrM2FZ78V4ufD1LcyYXmOBabHqWnCZU
+
+
+### Get Single Task
+GET {{baseUrl}}/tasks/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxMzgxNzU4LCJleHAiOjE3OTE0NjgxNTh9.OipSnIIZANuqnrM2FZ78V4ufD1LcyYXmOBabHqWnCZU
+
+
+### Update Task
+PUT {{baseUrl}}/tasks/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxMzgxNzU4LCJleHAiOjE3OTE0NjgxNTh9.OipSnIIZANuqnrM2FZ78V4ufD1LcyYXmOBabHqWnCZU
+
+{
+  "name": "Create backend authentication",
+  "description": "Implement JWT authentication and protected routes.",
+  "priority": "High",
+  "status": "Completed",
+  "due_date": "2026-10-10"
+}
+
+
+### Delete Task
+DELETE {{baseUrl}}/tasks/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxMzgxNzU4LCJleHAiOjE3OTE0NjgxNTh9.OipSnIIZANuqnrM2FZ78V4ufD1LcyYXmOBabHqWnCZU
+
+
+
+
+
+
+### Create Task
+POST http://localhost:5000/api/projects/1/tasks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxMzgxNzU4LCJleHAiOjE3OTE0NjgxNTh9.OipSnIIZANuqnrM2FZ78V4ufD1LcyYXmOBabHqWnCZU
+
+{
+  "project_id": 1,
+  "name": "Create backend authentication",
+  "description": "Implement JWT authentication and protected routes.",
+  "priority": "High",
+  "status": "Completed",
+  "due_date": "2026-10-10"
+}
+
+
+
+
+### Get Task
+GET http://localhost:5000/api/projects/1/tasks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxMzgxNzU4LCJleHAiOjE3OTE0NjgxNTh9.OipSnIIZANuqnrM2FZ78V4ufD1LcyYXmOBabHqWnCZU
+
+{
+  "project_id": 1,
+  "name": "Create backend authentication",
+  "description": "Implement JWT authentication and protected routes.",
+  "priority": "High",
+  "status": "Completed",
+  "due_date": "2026-10-10"
+}
+
+
+### DELETE TASK
+DELETE http://localhost:5000/api/tasks/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxMzgxNzU4LCJleHAiOjE3OTE0NjgxNTh9.OipSnIIZANuqnrM2FZ78V4ufD1LcyYXmOBabHqWnCZU
+
+
+### UPDATE TASK
+PUT http://localhost:5000/api/tasks/7
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxMzgxNzU4LCJleHAiOjE3OTE0NjgxNTh9.OipSnIIZANuqnrM2FZ78V4ufD1LcyYXmOBabHqWnCZU
+
+{
+  "name": "Updated Task",
+  "description": "Testing update functionality",
+  "priority": "High",
+  "status": "In Progress",
+  "due_date": "2026-10-20"
+}
+
+
+GET http://localhost:5000/api/projects/1/tasks
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoicGl5dXNoQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxMzgxNzU4LCJleHAiOjE3OTE0NjgxNTh9.OipSnIIZANuqnrM2FZ78V4ufD1LcyYXmOBabHqWnCZU
+
+
+
+
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "agarwalpiyush289@gmail.com",
+  "password": "Piyus123"
+}
+
+### Health
+GET http://localhost:5000/health
